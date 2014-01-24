@@ -1,0 +1,17 @@
+# this is a java project
+language: java
+jdk:
+- oraclejdk7
+# checkout the this project to get the settings.xml before build
+before_install: "git clone https://github.com/holisticon/travis-configuration.git target/travis"
+# build, package and deploy snapshot to sonatype repo
+script: "mvn -q clean deploy --settings target/travis/settings.xml"
+# whitelist: only use master
+branches:
+  only:
+  - master
+# encrypted credentials for sonatype
+env:
+  global:
+  - secure: <YOUR_ENCRYPTED_SONATYPE_USERNAME_HERE>
+  - secure: <YOUR_ENCRYPTED_SONATYPE_PASSWORD_HERE>
